@@ -1,0 +1,10 @@
+extends base.pug
+include mixins/video 
+
+block content
+    h1 Welcome to Wetube
+
+    each content in videos
+        +video(content)
+    else
+        li There's no video😥

@@ -8,6 +8,9 @@ const PORT = 4000;
 const app = express();
 //app 설정 (ex. get request에 응답하는 법,,)
 const logger = morgan("dev");
+
+app.set("view engine", "pug");
+app.set("views", process.cwd()+"/src/views");
 app.use(logger);
 
 app.use("/", globalRouter);

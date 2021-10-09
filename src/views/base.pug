@@ -1,0 +1,23 @@
+doctype html
+html(lang="ko")
+    head
+        title #{pageTitle} | Wetube
+        link(rel="stylesheet" href="https://unpkg.com/mvp.css")
+    body
+        header
+            if fakeData.loggedIn
+                small Welcom #{fakeData.name}
+            
+            nav
+                ul
+                    if fakeData.loggedIn
+                        li
+                            a(href="/users/logout") Log Out
+                    else 
+                        li 
+                            a(href="/login") Log In 
+            h1=pageTitle
+        main
+            block content
+        
+    include partials/footer
