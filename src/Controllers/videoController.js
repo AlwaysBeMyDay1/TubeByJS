@@ -51,3 +51,13 @@ export const postEdit = (req,res) => {
   videos[id-1].title = title;
   return res.redirect(`/videos/${id}`); //제출 후 돌아갈 페이지
 }
+
+export const getUpload = (req, res) => {
+  const {id} = req.params;
+  return res.render("upload",{pageTitle:"Upload Video", id});
+}
+
+export const postUpload = (req, res) => {
+  videos.push(req.body);
+  return res.redirect("/");
+}

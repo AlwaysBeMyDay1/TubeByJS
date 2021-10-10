@@ -1,9 +1,10 @@
+import "./db";
 import express from "express";
 import morgan from "morgan";
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
-const PORT = 4000;
+const PORT = 4008;
 
 const app = express();
 //app 설정 (ex. get request에 응답하는 법,,)
