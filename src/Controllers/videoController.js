@@ -2,15 +2,11 @@
 //   name : "Dan",
 //   loggedIn : true, 
 // }
-import Video from "../models/Video"
+import Video from "../models/Video";
 
-export const home = (req, res) => {
-  console.log("Start");
-  Video.find({}, (error, videos) => {
-    console.log("Finished");
+export const home = async (req, res) => {
+    const videos = await Video.find({});
     return res.render("home", { pageTitle: "Home", videos });
-  });
-  console.log("I finish first");
 };
 
 export const watch = (req, res) =>{
@@ -34,7 +30,16 @@ export const getUpload = (req, res) => {
   return res.render("upload",{pageTitle:"Upload Video", id});
 }
 
-export const postUpload = (req, res) => {
-  videos.push(req.body);
-  return res.redirect("/");
-}
+export const postUpload = async (req, res) => {
+  const {title, description, hashtags} = req.body;
+  try{
+    await Video.create({
+      title : title, //왼쪽은 스키마의 title, 오른쪽은 req.body의 title //but 같으므로 그냥 혼자 씀
+      description,
+      hashtags: hashtags.split(",").map((word) => `#${word}`),
+    });
+    return res.redirect("/");
+  }catch(error){
+    return res.render("upload", {pageTitle:"Upload Video",errorMessage : error._message,});
+  }
+};

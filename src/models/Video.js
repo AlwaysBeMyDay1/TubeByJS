@@ -1,14 +1,15 @@
-//우리 app의 생김새를 설명해줌
+//mongoose가 우리와 mongo를 연결하게끔 도와줌
+//우리는 mongoose를 도와주기 위해 app의 생김새를 설명해줌
 import mongoose from "mongoose";
 
 const videoSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    createdAt: Date,
+    title: {type : String, required:true, maxlength:20},
+    description: {type : String, required:true, maxlength:100},
+    createdAt: {type : Date, required:true, default:Date.now},
     hastags:[{type: String}],
     meta:{
-        views: Number,
-        rating: Number,
+        views: {type:Number, default:0,required:true},
+        rating: {type:Number, default:0,required:true},
     },
 });
 
