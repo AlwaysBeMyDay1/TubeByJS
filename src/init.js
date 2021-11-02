@@ -1,9 +1,10 @@
+import "dotenv/config"; //require("dotenv").config(); 와 동일
 import "./db";
 import "./models/Video";
 import "./models/User";
 import app from "./server";
 
-const PORT = 4008;
+const PORT = 4000;
 
 const handleListening = ()=> console.log(`✅ Server listening on port http://localhost:${PORT}`);
 app.listen(PORT, handleListening);
