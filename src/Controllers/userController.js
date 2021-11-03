@@ -159,42 +159,39 @@ export const postEdit = async (req, res) => {
     },
     body: { name, email, username, location },
   } = req;
+  
   //변경한 username, email이 중복된다면
   const pageTitle = "Edit User";
-  if (username !== usernameS && email !== emailS) {
-    const usernameExists = await User.exists({ username });
-    const emailExists = await User.exists({ email });
-    if (usernameExists && emailExists) {
-      return res.render("edit-profile", {
-        pageTitle,
-        errorMessage: "These username & email adress are already exists",
-      });
-    } else if (!usernameExists && emailExists) {
-      return res.render("edit-profile", {
-        pageTitle,
-        errorMessage: "This email address is already exists",
-      });
-    } else if (usernameExists && !emailExists) {
-      return res.render("edit-profile", {
-        pageTitle,
-        errorMessage: "This username is already exists",
-      });
-    }
-  } else if (username === usernameS && email !== emailS) {
-    const emailExists = await User.exists({ email });
-    if (emailExists) {
-      return res.render("edit-profile", {
-        pageTitle,
-        errorMessage: "This email address is already exists",
-      });
-    }
-  } else if (username !== usernameS && email === emailS) {
+  let exist = [];
+  if (username !== usernameS) {
     const usernameExists = await User.exists({ username });
     if (usernameExists) {
+      exist.push("usernameExists");
+    }
+  }
+  if (email !== emailS) {
+    const emailExists = await User.exists({ email });
+    if (emailExists) {
+      exist.push("emailExists");
+    }
+  }
+  if (exist.length > 0) {
+    if (exist.length === 2) {
       return res.render("edit-profile", {
         pageTitle,
-        errorMessage: "This username is already exists",
+        errorMessage: "These email address & username already exist.",
       });
+    } else if (exist.length == 1) {
+      if (exist[0] == "usernameExists") {
+        return res.render("edit-profile", {
+          pageTitle,
+          errorMessage: "This username already exist.",
+        });
+      } else if(exist[0] == "emailExists")
+        return res.render("edit-profile", {
+          pageTitle,
+          errorMessage: "This email address already exist.",
+        });
     }
   }
 
