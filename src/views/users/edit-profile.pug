@@ -1,4 +1,4 @@
-extends base
+extends ../base
 
 block content 
     if errorMessage 
@@ -9,3 +9,6 @@ block content
         input(name="username",placeholder="Username",type="text", required, value=loggedInUser.username)
         input(name="location",placeholder="Location",type="text", value=loggedInUser.location)
         input(type="submit", value="Update your profile")
+        if !loggedInUser.socialOnly
+            hr
+            a(href="change-pw") Change Password &rarr;

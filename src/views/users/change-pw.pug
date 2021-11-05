@@ -1,0 +1,10 @@
+extends ../base
+
+block content
+    if errorMessage 
+        span=errorMessage
+    form(method="POST")
+        input(name="current_pw",placeholder="Type Current Password",type="password")
+        input(name="new_pw1",placeholder="Type New Password",type="password")
+        input(name="new_pw2",placeholder="Confirm New Password",type="password")
+        input(type="submit", value="Change PW")

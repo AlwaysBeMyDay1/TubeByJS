@@ -16,7 +16,7 @@ export const watch = async(req, res) =>{
   const video = await Video.findById(id);
   if(!video){
     return res.render("404", {pageTitle:"Video not found"});
-  } else return res.render("watch" , {pageTitle: video.title, video});
+  } else return res.render("videos/watch" , {pageTitle: video.title, video});
 };
 
 
@@ -26,7 +26,7 @@ export const getEdit = async (req, res) => {
   if(!video){
     return res.status(404).render("404", {pageTitle:`Video needs edit Not Found`});
   }
-  return res.render("edit" , {pageTitle:`Editing ${video.title}`, video});
+  return res.render("videos/edit" , {pageTitle:`Editing ${video.title}`, video});
 };
 
 
@@ -43,12 +43,12 @@ export const postEdit = async (req,res) => {
     description,
     hashtags : Video.formatHashtags(hashtags),
   });
-  return res.redirect(`/videos/${id}`); //제출 후 돌아갈 페이지
+  return res.redirect(`videos/${id}`); //제출 후 돌아갈 페이지
 }
 
 
 export const getUpload = (req, res) => {
-  return res.render("upload",{pageTitle:"Upload Video"});
+  return res.render("videos/upload",{pageTitle:"Upload Video"});
 }
 
 
@@ -62,7 +62,7 @@ export const postUpload = async (req, res) => {
     });
     return res.redirect("/");
   }catch(error){
-    return res.status(400).render("upload", {pageTitle:"Upload Video",errorMessage : error._message,});
+    return res.status(400).render("videos/upload", {pageTitle:"Upload Video",errorMessage : error._message,});
   }
 };
 
@@ -84,5 +84,5 @@ export const search = async (req, res) => {
       },
     });
   }
-  return res.render("search", { pageTitle: "Search", videos });
+  return res.render("videos/search", { pageTitle: "Search", videos });
 };

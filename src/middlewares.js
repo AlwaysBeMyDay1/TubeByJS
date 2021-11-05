@@ -23,3 +23,5 @@ export const publicOnlyMiddleware = (req,res,next) => {
         return res.redirect("/");
     }
 }
+
+//github으로 로그인하지 않은 사람
