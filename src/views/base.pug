@@ -5,6 +5,7 @@ html(lang="ko")
         link(rel="stylesheet" href="https://unpkg.com/mvp.css")
     body
         header
+        h1=pageTitle
         nav
             ul
                 li    
@@ -15,7 +16,7 @@ html(lang="ko")
                     li
                         a(href="/videos/upload") Upload Video
                     li
-                        a(href="/my-profile") #{loggedInUser.name}'s Profile
+                        a(href=`/users/${loggedInUser._id}`) #{loggedInUser.name}'s Profile
                     li
                         a(href="/users/edit") Edit Profile 
                     li  
@@ -35,7 +36,6 @@ html(lang="ko")
             //-         else 
             //-             li 
             //-                 a(href="/login") Log In 
-            h1=pageTitle
         main
             block content
         

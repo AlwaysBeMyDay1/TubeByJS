@@ -154,11 +154,11 @@ export const getEdit = async (req, res) => {
 export const postEdit = async (req, res) => {
   const {
     session: {
-      user: { _id, username: usernameS, email: emailS }, //id는 mongo가 만들어줌, mongostore가 mongo를 세션과 연결해줌. => 세션을 몽고에 저장 가능
+      user: { _id, username: usernameS, email: emailS, avatarUrl }, //id는 mongo가 만들어줌, mongostore가 mongo를 세션과 연결해줌. => 세션을 몽고에 저장 가능
     },
     body: { name, email, username, location },
+    file,
   } = req;
-
   //변경한 username, email이 중복된다면
   const pageTitle = "Edit User";
   let exist = [];
@@ -197,6 +197,7 @@ export const postEdit = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
+      avatarUrl: file ? file.path : avatarUrl,
       name,
       email,
       username,
@@ -204,11 +205,10 @@ export const postEdit = async (req, res) => {
     },
     { new: true }
   );
-
   req.session.user = updatedUser;
   // { ...req.session.user, name, email, username, location}
   // 이렇게 직접 넣을 수도 있지만 비효율적 (...req~ :기존이랑 동일하단 뜻)
-  return res.redirect("edit");
+  return res.redirect("/users/edit");
 };
 
 export const logout = (req, res) => {
@@ -224,12 +224,12 @@ export const postChangePW = async (req, res) => {
   const pageTitle = "Change Password";
   const {
     session: {
-      user: { _id},
+      user: { _id },
     },
     body: { current_pw, new_pw1, new_pw2 },
   } = req;
 
-  const user = await User.findById(_id);//save 함수 실행 위해 user 찾기
+  const user = await User.findById(_id); //save 함수 실행 위해 user 찾기
   const ok = await bcrypt.compare(current_pw, user.password);
   if (!ok) {
     return res.status(400).render("users/change-pw", {
@@ -243,10 +243,20 @@ export const postChangePW = async (req, res) => {
       errorMessage: "Password Confirmation Failed :(",
     });
   }
-  
+
   user.password = new_pw1;
   user.save(); //save()로 pre save middleware 실행해서 hash한 후 저장해야함
   return res.redirect("/users/logout");
 };
 
-export const see = (req, res) => res.send("See User");
+export const profile = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if(!user){
+    return res.status(404).render("404", {pageTitle:"User not found"});
+  }
+  return res.render("users/profile", {
+    pageTitle: `${user.name}'s Profile`,
+    user,
+  });
+};
