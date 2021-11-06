@@ -1,3 +1,9 @@
 extends ../base
+include ../mixins/video 
 
 block content
+    each content in user.videos
+        +video(content)
+    else
+        li Did not upload video yet 😥
+    a(href="/users/edit") Edit Profile 
