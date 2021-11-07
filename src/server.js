@@ -30,7 +30,8 @@ app.use(
 //(들어온 사람에게 텍스트(쿠키)를 주고, 해당 텍스트로 유저가 누구인지 알아냄)
 
 app.use(localsMiddleware); //← 이 미들웨어로는 session object에 접근
-app.use("/uploads", express.static("uploads"))
+app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
