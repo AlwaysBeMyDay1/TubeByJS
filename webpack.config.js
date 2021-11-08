@@ -4,8 +4,8 @@ const path = require("path");
 module.exports = {
   entry: "./src/client/js/main.js",
   mode:"development",
-  watch:true,
-  plugins:[new MiniCssExtractPlugin({
+  watch:true, //2개의 console 실행해야 함(one for client, one for backend)
+  plugins:[new MiniCssExtractPlugin({ //css 파일을 css/styles.css에 입력해줌
     filename : "css/style.css"
   })],
   output: {

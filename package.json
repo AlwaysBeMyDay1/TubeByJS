@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev:server": "nodemon",
-    "dv:assets": "webpack"
+    "dev:assets": "webpack"
   },
   "author": "",
   "license": "ISC",

@@ -1,0 +1,32 @@
+header
+    a(href="/")
+        i.fab.fa-youtube
+    nav
+        ul
+            li    
+                a(href="/") Home
+            li
+                a(href="/search") Search
+            if loggedIn 
+                li
+                    a(href="/videos/upload") Upload Video
+                li
+                    a(href=`/users/${loggedInUser._id}`) #{loggedInUser.name}'s Profile
+                li  
+                    a(href="/users/logout") Logout
+            else
+                li
+                    a(href="/join") Join
+                li
+                    a(href="/login") Login
+        //- if fakeData.loggedIn
+        //-     small Welcom #{fakeData.name}
+        //- nav
+        //-     ul
+        //-         if fakeData.loggedIn
+        //-             li
+        //-                 a(href="/users/logout") Log Out
+        //-         else 
+        //-             li 
+        //-                 a(href="/login") Log In 
+        
