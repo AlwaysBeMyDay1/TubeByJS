@@ -2,8 +2,13 @@ extends ../base
 include ../mixins/video 
 
 block content
-    each content in user.videos
-        +video(content)
-    else
-        li Did not upload video yet 😥
-    a(href="/users/edit") Edit Profile 
+    div.profile__data
+        img(src="/"+user.avatarUrl).avatar
+        h3=user.name
+        br
+        a(href="/users/edit") Edit Profile 
+    div.video-grid
+        each content in user.videos
+            +video(content)
+        else
+            li Did not upload video yet 😥

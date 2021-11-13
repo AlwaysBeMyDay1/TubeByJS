@@ -2,10 +2,27 @@ extends base.pug
 include mixins/video 
 
 block content
-    h1 Welcome to Wetube
-    br
-    br
-    each content in videos
-        +video(content)
-    else
-        li There's no video😥
+    div.video-grid
+        each video in videos
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+
+            +video(video)
+            +video(video)
+            +video(video)
+            +video(video)
+            
+        else
+            span.empty__message There's no video😥
