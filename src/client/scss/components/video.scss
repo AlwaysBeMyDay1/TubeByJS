@@ -17,6 +17,9 @@
         .video-mixin__meta{
             margin-top: 5px;
             font-size: 12px;
+            .video-mixin__views{
+                margin-left: 3px;
+            }
         }
     }
 }
