@@ -214,10 +214,15 @@ export const postEdit = async (req, res) => {
 
 export const logout = (req, res) => {
   req.session.destroy();
+  req.flash("info", "Bye Bye");
   return res.redirect("/");
 };
 
 export const getChangePW = (req, res) => {
+  if(req.session.user.socialOnly === true){
+    req.flash("error", "Can't change password")
+    return res.redirect("/");
+  }
   return res.render("users/change-pw", { pageTitle: "Change Password" });
 };
 
@@ -247,6 +252,7 @@ export const postChangePW = async (req, res) => {
 
   user.password = new_pw1;
   user.save(); //save()로 pre save middleware 실행해서 hash한 후 저장해야함
+  req.flash("info", "Password updated")
   return res.redirect("/users/logout");
 };
 

@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
@@ -29,7 +30,7 @@ app.use(
 );
 //↑ 위의 session 미들웨어가 사이트로 들어오는 모두를 기억함
 //(들어온 사람에게 텍스트(쿠키)를 주고, 해당 텍스트로 유저가 누구인지 알아냄)
-
+app.use(flash());
 app.use(localsMiddleware); //← 이 미들웨어로는 session object에 접근
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
