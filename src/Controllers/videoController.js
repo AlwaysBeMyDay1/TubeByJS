@@ -1,16 +1,12 @@
-// const fakeData ={
-//   name : "Dan",
-//   loggedIn : true,
-// }
 import Video from "../models/Video";
 import User from "../models/User";
-import Comment from "../models/User";
-import { videoUpload } from "../middlewares";
+import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
   const videos = await Video.find({})
     .sort({ createdAt: "asc" })
     .populate("owner");
+  console.log(videos);
   return res.render("home", { pageTitle: "Home", videos });
 };
 
